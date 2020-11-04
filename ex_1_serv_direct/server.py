@@ -17,12 +17,9 @@ class DBList(rpyc.Service):
 if __name__ == "__main__":
 	server = ForkingServer(DBList, port = 12346)
 
-	#Coneect to directory server:
 	conn = rpyc.connect(DIR_SERVER, DIR_PORT)
 
-	#Obtain IP address of the machine where I'm running:
 	my_addr = socket.gethostbyname(socket.gethostbyname())
 
-	# Register myself in the directory server:
 	print (conn.root.exposed_register("DBList", my_addr, 12346))
 	server.start()
